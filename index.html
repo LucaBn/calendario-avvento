@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <meta name="title" content="Calendario dell'Avvento" />
+    <meta
+      name="description"
+      content="Visita questa pagina ogni giorno per aprire una nuova casellina!"
+    />
+    <meta name="author" content="" />
+
+    <meta property="og:title" content="Calendario dell'Avvento" />
+    <meta
+      property="og:description"
+      content="Visita questa pagina ogni giorno per aprire una nuova casellina!"
+    />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+
+    <meta name="twitter:title" content="Calendario dell'Avvento" />
+    <meta
+      name="twitter:description"
+      content="Visita questa pagina ogni giorno per aprire una nuova casellina!"
+    />
+    <meta name="twitter:image" content="" />
+
+    <title>Calendario dell'Avvento</title>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.15/dist/vue.js"></script>
+    <script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=lato:400,500"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+
+  <body>
+    <div id="app" class="container text-center mt-3 mt-lg-5">
+      <div class="row">
+        <template>
+          <div id="app" class="container text-center mt-3 mt-lg-5">
+            <div class="row">
+              <div class="col-12">
+                <h1>Calendario dell'avvento {{year}} 🎅</h1>
+                <p class="mb-4">
+                  Clicca sui pacchetti che si muovono per aprirli
+                </p>
+              </div>
+              <div class="col-12">
+                <div class="row g-2 g-lg-3">
+                  <div
+                    v-for="(imgUrl, index) in imgUrlList"
+                    :key="index"
+                    class="col-6 col-md-4 col-lg-3"
+                  >
+                    <div
+                      class="card"
+                      :class="{'opened': index < pendingBoxes && openedBoxes.value && openedBoxes.value.indexOf(index+1) !== -1}"
+                    >
+                      <div class="card-header">
+                        <p class="card-title mb-0">{{ index+1 }} Dicembre</p>
+                      </div>
+                      <div class="card-body position-relative p-4 p-xl-5">
+                        <img
+                          v-on:click="showBigPicture(imgUrl)"
+                          :src="imgUrl"
+                          alt="Immagine del giorno"
+                          class="card-picture"
+                        />
+                        <img
+                          src="/assets/img/gift.png"
+                          alt="Sono ancora chiuso!"
+                          v-on:click="index < pendingBoxes && openBox(index+1)"
+                          class="card-box w-100"
+                          :class="{'pending': index < pendingBoxes}"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="mt-5">Made with ♥ by {{author}}</p>
+            </div>
+
+            <div
+              id="modal"
+              :class="{'modal-visible': modalPictureUrl.value !== ''}"
+              :style="`background-image: url('${modalPictureUrl.value}')`"
+              v-on:click="showBigPicture('')"
+            >
+              <!-- // -->
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <footer>
+      <script src="/assets/js/general.js"></script>
+    </footer>
+  </body>
+</html>
