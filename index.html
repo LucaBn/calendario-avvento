@@ -55,66 +55,60 @@
 
   <body>
     <div id="app" class="container text-center mt-3 mt-lg-5">
-      <div class="row">
-        <template>
-          <div id="app" class="container text-center mt-3 mt-lg-5">
-            <div class="row">
-              <div class="col-12">
-                <h1>Calendario dell'avvento {{year}} 🎅</h1>
-                <p class="mb-4">
-                  Clicca sui pacchetti che si muovono per aprirli
-                </p>
-              </div>
-              <div class="col-12">
-                <div class="row g-2 g-lg-3">
-                  <div
-                    v-for="(imgUrl, index) in imgUrlList"
-                    :key="index"
-                    class="col-6 col-md-4 col-lg-3"
-                  >
-                    <div
-                      class="card"
-                      :class="{'opened': index < pendingBoxes && openedBoxes.value && openedBoxes.value.indexOf(index+1) !== -1}"
-                    >
-                      <div class="card-header">
-                        <p class="card-title mb-0">{{ index+1 }} Dicembre</p>
-                      </div>
-                      <div class="card-body position-relative p-4 p-xl-5">
-                        <img
-                          v-on:click="showBigPicture(imgUrl)"
-                          :src="imgUrl"
-                          alt="Immagine del giorno"
-                          class="card-picture"
-                        />
-                        <img
-                          src="/assets/img/gift.png"
-                          alt="Sono ancora chiuso!"
-                          v-on:click="index < pendingBoxes && openBox(index+1)"
-                          class="card-box w-100"
-                          :class="{'pending': index < pendingBoxes}"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        />
-                      </div>
-                    </div>
+      <template>
+        <div class="row">
+          <div class="col-12">
+            <h1>Calendario dell'avvento {{year}} 🎅</h1>
+            <p class="mb-4">Clicca sui pacchetti che si muovono per aprirli</p>
+          </div>
+          <div class="col-12">
+            <div class="row g-2 g-lg-3">
+              <div
+                v-for="(imgUrl, index) in imgUrlList"
+                :key="index"
+                class="col-6 col-md-4 col-lg-3"
+              >
+                <div
+                  class="card"
+                  :class="{'opened': index < pendingBoxes && openedBoxes.value && openedBoxes.value.indexOf(index+1) !== -1}"
+                >
+                  <div class="card-header">
+                    <p class="card-title mb-0">{{ index+1 }} Dicembre</p>
+                  </div>
+                  <div class="card-body position-relative p-4 p-xl-5">
+                    <img
+                      v-on:click="showBigPicture(imgUrl)"
+                      :src="imgUrl"
+                      alt="Immagine del giorno"
+                      class="card-picture"
+                    />
+                    <img
+                      src="/assets/img/gift.png"
+                      alt="Sono ancora chiuso!"
+                      v-on:click="index < pendingBoxes && openBox(index+1)"
+                      class="card-box w-100"
+                      :class="{'pending': index < pendingBoxes}"
+                      viewBox="0 0 1024 1024"
+                      xmlns="http://www.w3.org/2000/svg"
+                    />
                   </div>
                 </div>
               </div>
-
-              <p class="mt-5">Made with ♥ by {{author}}</p>
-            </div>
-
-            <div
-              id="modal"
-              :class="{'modal-visible': modalPictureUrl.value !== ''}"
-              :style="`background-image: url('${modalPictureUrl.value}')`"
-              v-on:click="showBigPicture('')"
-            >
-              <!-- // -->
             </div>
           </div>
-        </template>
-      </div>
+
+          <p class="mt-5">Made with ♥ by {{author}}</p>
+        </div>
+
+        <div
+          id="modal"
+          :class="{'modal-visible': modalPictureUrl.value !== ''}"
+          :style="`background-image: url('${modalPictureUrl.value}')`"
+          v-on:click="showBigPicture('')"
+        >
+          <!-- // -->
+        </div>
+      </template>
     </div>
 
     <footer>
